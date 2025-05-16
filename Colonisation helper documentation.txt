@@ -1,11 +1,14 @@
 Dart’s Colonisation Helper
-Version history (2.4)
+Version history (2.6)
     • Added add/remove commodities from Template maker
     • Tracker can now auto-generate depot files -updated text to reflect that
     • New feature the *All* depot -an aggreagate of all depot requirements and deliveries 
     • ‘Archive Depot’ button added to Monitor
     • ‘No depot files’ case now handled without errors
     • Explicit ship pad size lookup – no longer guessing based on cargo capacity
+    • Displays system of the active depot.
+    • Added “in Stock Filter” for showing only commodities available at a market when docked
+    • Added Progress bars and totals row
       
 DISCLAIMER
 Please remember this is non-commercial software intended originally for the author’s personal use only.  I cannot be sure my scripts will work properly or at all in all situations or system configurations.  Whilst I have taken care not to include any code that might cause harm your computer, I do not accept liability for any damage direct or indirect that may be caused by using my scripts.  It is provided as-is and without any warranty express or implied whatsoever. 
@@ -60,16 +63,19 @@ Running the tracker opens a text window that displays debug information only.  T
 
 Using the Monitor
 This is the dashboard for your colonisation commodities and looks like this when first opened and a depot is properly setup:
+
 Monitor Script Window
 Features:
     • The main table presents a list of commodities required by the Active Depot.  Columns are 
         ? Name: Name of each commodity.
+        ? Stock: (Only when docked and market open)  Available stock at this market.
         ? Required: How much is needed for the current Depot.
         ? Delivered: How much has already been delivered.
         ? Ship: How much is currently on your ship.
         ? Carrier: How much is currently on your carrier.
         ? Remaining:  How much is yet to be delivered i.e. Required-Delivered.
         ? Notes:  Info about the status of this commodity with respect to the Active Depot.
+        ? Progress:  Number and green bar are the percentage delivered.  The orange bar represents what is stored on the carrier and ship.
     • Table colour coding:
         ? Green: delivery completed
         ? Yellow:  Enough bought and stored on carrier to complete delivery
@@ -77,16 +83,19 @@ Features:
         ? White:  Need to buy more
         ? Blue: Enough on ship to complete delivery.
         ? Red background:  Too much on ship (overstock)  This is not an error, just warning in case you did not intend to buy extra.
-        ? Blue background: When docked and after opening the station services commodity market the background changes to blue for commodities that you need and can be bought here. This also adds a temporary ‘Stock’ Column that shows how much is available to buy at this market.  Market information will disappear when you launch to leave the station.
-    • “Deliver Only” checkbox: (top left) Activates a filter that only shows commodities that still need to be delivered. You can only have 1 filter selected at a time.
-    • “Buy Only” checkbox:  (top left)  Activates a filter that only shows commodities that still need to be bought. You can only have 1 filter selected at a time.
+        ? Blue background: When docked and after opening the station services commodity market the background changes to blue for commodities that you need and can be bought here. This also adds a temporary ‘Stock’ Column that shows how much is available to buy at this market.  Market information will disappear when you leave the station.
+        ? The last row is a totals summary.  This row is not affected by any filters or sorting that are applied; It is always visible and shows totals for all commodities of the active depot, not just those that are visible.
+    • “Deliver Only” checkbox: (top left) Activates a filter that only shows commodities that still need to be delivered. Checking this will un-check the “Buy Only” checkbox
+    • “Buy Only” checkbox:  (top left)  Activates a filter that only shows commodities that still need to be bought. Checking this will un-check the “Deliver Only” checkbox
+    • “In Stock Only” checkbox:  (top left)   Activates a filter that only shows commodities that are in stock at the current market, it can be combined with the Buy only and Deliver Only filters to further restrict what is displayed. Only works when docked and after opening the station services commodity market; ignored at all other times.
     • “Edit” button: (top) Opens the editor to allow manual adjustment of quantities.  This button is disabled when the active depot is *All*.  Switch to a single depot if you need to correct an error
-    • “Tracker”: (top) Indicates if the state of the tracker script:  Green OK if it is running, Red OFF if it is not.
+    • “Tracker”: (top) Indicates the state of the tracker script:  Green OK if it is running, Red OFF if it is not.
     • Info Lines: (top) The first line gives an overall summary of how much still needs to be delivered for the Active Depot.  The second line is the name of the journal file currently being tracked by the tracker script (primarily for debug reasons)
-    • Active Depot Selector:   (Top right) This is a drop-down list box of known depots.  The Active Depot is displayed when the list is not expanded.   The last entry is always *All* - this will generate an aggregate view across all known depots. Use this when in a buying cycle and you are buying for several depots at the same time. Note: Regardless of which depot is active, the Tracker will still track deliveries to all depots, the Active Depot Selector only affects which depot is displayed on the monitor, and which Depot the Editor will edit.
-    • Archive Depot: (Top Right, red X button) Remove the active depot from the selector list; does nothing if the active depot is *ALL*.  A prompt will appear first to confirm this action.  The depot file is not deleted, but renamed with an ‘.archive’ extension and left in the progress directory, after which the monitor and tracker will ignore it.  It can be returned to use by removing the extension, or permanently deleted with file explorer.
-    • Inara commodity search: Double-clicking on any Commodity name in the Name column will open Inara and search for that commodity near the last known ship location. See known issues regarding search criteria limitations.
-The Monitor script can only display information for 1 depot at a time.  You can switch between depots at any time, but if you want to have a real-time update of 2 or more depots, just run another copy of the monitor and select a different depot.   If you have more than one site under construction the *All* depot may be used so that you can see your total commodity requirements when , for example, you are filling a carrier from some distance away from your systems.
+    • Active Depot Selector:   (Top right) This is a drop-down list box of known depots.  The Active Depot is displayed when the list is not expanded.   Additional automatic entries are also added: “*All*” and one for each Star system that has 1 or more depots  - these will generate an aggregate view across all depots or those depots located in a particular Star System. Use this when in a buying cycle and you are buying for several depots at the same time. Note: Regardless of which depot is active, the Tracker will still track deliveries to all depots, the Active Depot Selector only affects which depot is displayed on the monitor, and which Depot the Editor will edit.
+    • Active Depot System. (Below Active Depot Selector) Displays the system where the active depot is located.  Double clicking this text will copy the system name to the clipboard.
+    • Archive Depot: (Top Right, red X button) Remove the active depot from the selector list; does nothing if the selected item is not a depot name.  A prompt will appear first to confirm this action.  The depot file is not deleted, but renamed with an ‘.archive’ extension and left in the progress directory, after which the monitor and tracker will ignore it.  It can be returned to use by removing the extension, or permanently deleted with file explorer.
+    • Inara commodity search: Double-clicking on any Commodity name in the Name column will open Inara at the search page for that commodity nearest the current ship location. See known issues regarding search criteria limitations.
+The Monitor script can only display information for 1 depot at a time.  You can switch between depots at any time, but if you want to have a real-time update of 2 or more depots, just run another copy of the monitor and select a different depot.   If you have more than one site under construction the *All* depot may be used so that you can see your total commodity requirements, When combined with the ‘Buy Only’ filter and ‘In Stock’ filter is very useful when filling a carrier from some distance away from multiple construction sites. 
 Using the Editor
 This is the manual editor you open from the Monitor script “Edit” button when viewing a single depot only, it will not open if the active depot is *All*:
 Editor
