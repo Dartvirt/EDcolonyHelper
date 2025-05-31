@@ -1,0 +1,88 @@
+﻿########################################################################
+Version 2.8
+ColoniseMonitorGUI
+#  Bug fix - total calculations for carrier restricted to whats needed only
+
+########################################################################
+Version 2.7 
+ColoniseMonitorGUI
+#  Percentage complete number changes to purchased quantity if filter set to "buy only", in line with the way overall progress status behaves.
+#  Bug fixes: Totals row breaking when 0 or 1 commodity to display due to filters. (expecting an array of rows but a 'where' filter will not return an array if 0 or 1 items)
+#             Built-in Editor not saving starsystem to depot file (explicit fields 'selected' in remove-hash function was missing StarSystem).
+
+ColoniseMakeTemplates
+#  Added depot StarSystem to exported depot files.
+
+All Scripts
+#  Change comments moved out of the script files and now stored here.
+
+########################################################################
+version 2.6
+ColoniseTracker
+#  ActiveDepot in status file deprecated, but a dummy entry remains in the Status file for upgrade compatibility reasons -for now.
+
+ColoniseMonitorGUI
+#  New filter checkbox "In Stock". Display only commodities in stock when market is opened - ignored all other times.
+#  Moved ActiveDepot from Status file to new Settings file - to prevent rare race condition with tracker erasing file.
+#  Added starsystem groups to chooser - sum of all quantities for all depots in a given starsystem.
+#  Added Progress percent and bar to commodity table
+#  Added totals row to commodity table.  Filters and Sort code modified to never filter and always make it the last row.
+
+########################################################################
+version 2.5
+ColoniseTracker
+#  Star System added to depot file when creating depot.
+
+ColoniseMonitorGUI
+#  Star System of active depot now displayed on monitor under active depot selector.
+
+########################################################################
+version 2.4
+ColoniseTracker
+#  Version, ship model, name and pad size now included in Status file. Updated status class
+
+ColoniseMonitorGUI
+#  Handle 'no depots files' case better (return and handles nulls where appropriate).  
+#  Add explicit pad lookup for Inara search.  A padlookup file has been created and added to the package but this will require updates for every new ship.
+
+########################################################################
+version 2.3
+ColoniseMonitorGUI
+#  Added "Archive depot" button 
+
+########################################################################
+Version 2.2
+ColoniseTracker
+#  New colonisation log entries now used, replacing calculated figures from 'cargo' event.
+#  New creation of depot file from data in logs when landing at a new depot (Replaces template maker as preferred method to make depot files)
+
+
+########################################################################
+Version 2.1
+ColoniseMonitorGUI
+# Added row add/delete to in-built editor
+
+ColoniseMakeTemplates
+# Added row add/delete
+
+
+########################################################################
+version 2.0
+All Scripts
+#  Added multi depot support
+#  Progress now stored in multiple json files (1 per location including multiple depots and 1 carrier and 1 ship).
+
+ColoniseTracker
+#  The use of a powershell 'Job' to discover and process new journal entries by 'streaming' was unreliable 
+   and was abandoned in favour of a simpler 'read everything' every 1 second approach.
+#  The script still has some legacy design 'anomolies' left over from the original 'job' based processing, 
+   and the file name retains a mention (Tech debt).
+
+ColoniseMakeTemplates
+#  Template maker now forms based.
+
+########################################################################
+version 1
+Tracker and monitor Prototype using single CSV file for progress data.
+Inherently limited to only 1 depot at a time because ship, carrier and depot data was located in the same csv file.
+Template maker was console-only.
