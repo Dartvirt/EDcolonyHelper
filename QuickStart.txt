@@ -1,0 +1,20 @@
+Prerequisites:  Windows 10 or 11.  Powershell 5.1  (Others may work but not tested)
+1. Unpack the coloniseXX.zip file to a temporary location
+2. Move the "Colonise" directory and contents to live under C:\Data\Scripts (preferred location, but you can choose anywhere but check full doco first)
+3. With Windows Explorer open the 'Colonise' directory you just moved 
+4. Run the powershell script makeShortcuts.ps1 (right-click the script file then choose "Run with Powershell", DO NOT use the ISE version of powershell to run this script)
+5. IF YOU ARE USING A CARRIER (yours or someone else's): Open the _carrier.json file in the progress directory and fix the registration to match the carrier's 
+
+Usage
+Launch the tracker using the "Colonisation Tracker" shortcut located in shortcuts.  The Colonisation Monitor UI will also launch.  
+The tracker script must be running when doing colonisation activities to properly track cargo movements. The monitor can be closed and reopened using the "Colonisation Monitor" shortcut.
+Scripts cannot be run directly - always use the shortcuts. The scripts need the shortcuts to initialise the .net environment properly
+
+Use the monitor edit function to update your ship and carrier cargo if they are not empty of colonisation commodities. (see full instructions for another way to update your carrier cargo)
+In ED, dock at each of your Construction depots to initialise the Depot data for each of them.
+You may wish to archive (hide) the demo depots that come with the scripts using the Red X button.
+As you buy/sell/transfer/deliver cargo, the numbers will automatically update and tell you what you still need to buy and deliver (provided the tracker script is running)
+If numbers get out of sync (due to other activity not tracked by the tracker) you can use the Edit button to make manual changes.
+
+Full instructions and usage are in "Colonisation helper documentation"
+
