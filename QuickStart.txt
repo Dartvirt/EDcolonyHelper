@@ -1,9 +1,14 @@
 Prerequisites:  Windows 10 or 11.  Powershell 5.1  (Others may work but not tested)
 1. Unpack the coloniseXX.zip file to a temporary location
 2. Move the "Colonise" directory and contents to live under C:\Data\Scripts (preferred location, but you can choose anywhere but check full doco first)
-3. With Windows Explorer open the 'Colonise' directory you just moved 
-4. Run the powershell script makeShortcuts.ps1 (right-click the script file then choose "Run with Powershell", DO NOT use the ISE version of powershell to run this script)
-5. IF YOU ARE USING A CARRIER (yours or someone else's): Open the _carrier.json file in the progress directory and fix the registration to match the carrier's 
+3. My code is not signed, and code downloaded from the Internet is blocked by default from executing on most computers.  To allow my scripts to run do the following:
+     Open a powershell console 'as administrator'
+     CD to the C:\Data\colonise directory
+     Run the command "dir *.ps1 | unblock-file"
+     Close the powershell console
+4. With Windows Explorer open the 'Colonise' directory you moved in step 2
+5. Run the powershell script makeShortcuts.ps1 (right-click the script file then choose "Run with Powershell", DO NOT use the ISE version of powershell to run this script)
+6. IF YOU ARE USING A CARRIER (yours or someone else's): Open the _carrier.json file in the progress directory and fix the registration to match the carrier's 
 
 Usage
 Launch the tracker using the "Colonisation Tracker" shortcut located in shortcuts.  The Colonisation Monitor UI will also launch.  
